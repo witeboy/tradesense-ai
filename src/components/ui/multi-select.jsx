@@ -36,11 +36,11 @@ export function MultiSelect({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+          className="w-full justify-between bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600 h-9"
         >
           <div className="flex flex-wrap gap-1 flex-1">
             {selected.length === 0 ? (
-              <span className="text-slate-400">{placeholder}</span>
+              <span className="text-slate-500 dark:text-slate-400 text-sm">{placeholder}</span>
             ) : (
               selected.map((item) => {
                 const option = options.find((o) => o.value === item);
@@ -48,7 +48,7 @@ export function MultiSelect({
                   <Badge
                     key={item}
                     variant="secondary"
-                    className="bg-blue-600 text-white hover:bg-blue-700"
+                    className="bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 text-xs"
                   >
                     {option?.label || item}
                     <button
@@ -73,22 +73,22 @@ export function MultiSelect({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0 bg-slate-800 border-slate-600" align="start">
+      <PopoverContent className="w-full p-0 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600" align="start">
         <div className="max-h-64 overflow-auto p-2">
           {options.map((option) => {
             const isSelected = selected.includes(option.value);
             return (
               <div
                 key={option.value}
-                className="flex items-center space-x-2 p-2 hover:bg-slate-700 rounded cursor-pointer"
+                className="flex items-center space-x-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded cursor-pointer"
                 onClick={() => handleSelect(option.value)}
               >
                 <Checkbox
                   checked={isSelected}
                   onCheckedChange={() => handleSelect(option.value)}
-                  className="border-slate-500"
+                  className="border-slate-400 dark:border-slate-500"
                 />
-                <label className="text-slate-200 cursor-pointer flex-1">
+                <label className="text-slate-900 dark:text-slate-200 cursor-pointer flex-1 text-sm">
                   {option.label}
                 </label>
               </div>

@@ -148,63 +148,62 @@ export default function AlertManagementPanel({ currentSymbol, currentAnalysis })
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700 backdrop-blur">
-      <CardHeader>
-        <CardTitle className="text-white flex items-center justify-between">
+    <Card className="bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 backdrop-blur">
+      <CardHeader className="p-4">
+        <CardTitle className="text-slate-900 dark:text-white flex items-center justify-between text-base">
           <span className="flex items-center gap-2">
-            <BellRing className="w-5 h-5 text-blue-400" />
+            <BellRing className="w-4 h-4 text-blue-500" />
             Confluence Alerts
           </span>
           <Button
             size="sm"
             onClick={() => setIsAdding(!isAdding)}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-blue-600 hover:bg-blue-700 h-7 text-xs"
           >
-            <Plus className="w-4 h-4 mr-1" />
-            Add Alert
+            <Plus className="w-3 h-3 mr-1" />
+            Add
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Add Alert Form */}
+      <CardContent className="space-y-3 p-4 pt-0">
         {isAdding && (
-          <div className="p-4 rounded-lg bg-slate-900/30 border border-slate-700 space-y-4">
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 space-y-3">
             <div>
-              <Label className="text-slate-200">Symbol (Auto-detected)</Label>
-              <div className="mt-2 p-3 rounded bg-slate-800 border border-blue-500/30">
-                <p className="text-blue-400 font-mono text-lg">
+              <Label className="text-slate-700 dark:text-slate-200 text-sm">Symbol (Auto-detected)</Label>
+              <div className="mt-1.5 p-2 rounded bg-white dark:bg-slate-800 border border-blue-300 dark:border-blue-500/30">
+                <p className="text-blue-600 dark:text-blue-400 font-mono text-sm">
                   {currentSymbol || "No symbol selected yet"}
                 </p>
               </div>
             </div>
             
             <div>
-              <Label className="text-slate-200 mb-2 block">Confluence Threshold</Label>
+              <Label className="text-slate-700 dark:text-slate-200 mb-1.5 block text-sm">Confluence Threshold</Label>
               <div className="grid grid-cols-2 gap-2">
                 <Button
                   variant={newAlert.confluence_threshold === "75%" ? "default" : "outline"}
                   onClick={() => setNewAlert({...newAlert, confluence_threshold: "75%"})}
-                  className={newAlert.confluence_threshold === "75%" ? "bg-yellow-600" : "border-slate-600"}
+                  className={newAlert.confluence_threshold === "75%" ? "bg-yellow-600 text-xs h-8" : "border-slate-300 dark:border-slate-600 text-xs h-8"}
                 >
                   75% (High)
                 </Button>
                 <Button
                   variant={newAlert.confluence_threshold === "100%" ? "default" : "outline"}
                   onClick={() => setNewAlert({...newAlert, confluence_threshold: "100%"})}
-                  className={newAlert.confluence_threshold === "100%" ? "bg-green-600" : "border-slate-600"}
+                  className={newAlert.confluence_threshold === "100%" ? "bg-green-600 text-xs h-8" : "border-slate-300 dark:border-slate-600 text-xs h-8"}
                 >
                   100% (Perfect)
                 </Button>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <Label className="text-slate-200">Notification Methods</Label>
+            <div className="space-y-2">
+              <Label className="text-slate-700 dark:text-slate-200 text-sm">Notification Methods</Label>
               
-              <div className="flex items-center justify-between p-3 rounded bg-slate-800">
+              <div className="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-transparent">
                 <div className="flex items-center gap-2">
-                  <Bell className="w-4 h-4 text-blue-400" />
-                  <span className="text-slate-200">In-App Alerts</span>
+                  <Bell className="w-3 h-3 text-blue-500 dark:text-blue-400" />
+                  <span className="text-slate-700 dark:text-slate-200 text-sm">In-App</span>
                 </div>
                 <Checkbox
                   checked={newAlert.enable_in_app}
@@ -212,10 +211,10 @@ export default function AlertManagementPanel({ currentSymbol, currentAnalysis })
                 />
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded bg-slate-800">
+              <div className="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-transparent">
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-purple-400" />
-                  <span className="text-slate-200">MT5 Platform Alerts</span>
+                  <Zap className="w-3 h-3 text-purple-500 dark:text-purple-400" />
+                  <span className="text-slate-700 dark:text-slate-200 text-sm">MT5</span>
                 </div>
                 <Checkbox
                   checked={newAlert.enable_mt5}
@@ -223,12 +222,12 @@ export default function AlertManagementPanel({ currentSymbol, currentAnalysis })
                 />
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded bg-green-900/20 border border-green-500/30">
+              <div className="flex items-center justify-between p-2 rounded bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/30">
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-green-400" />
+                  <Zap className="w-3 h-3 text-green-600 dark:text-green-400" />
                   <div>
-                    <span className="text-green-200 font-semibold block">Auto-Execute Trade</span>
-                    <span className="text-green-300/70 text-xs">Automatically execute when alert triggers</span>
+                    <span className="text-green-800 dark:text-green-200 font-medium block text-sm">Auto-Execute</span>
+                    <span className="text-green-700 dark:text-green-300/70 text-xs">Auto-execute when triggered</span>
                   </div>
                 </div>
                 <Checkbox
@@ -239,36 +238,35 @@ export default function AlertManagementPanel({ currentSymbol, currentAnalysis })
             </div>
 
             <div className="flex gap-2">
-              <Button onClick={handleAddAlert} className="flex-1 bg-green-600 hover:bg-green-700">
-                Create Alert
+              <Button onClick={handleAddAlert} className="flex-1 bg-green-600 hover:bg-green-700 h-8 text-xs">
+                Create
               </Button>
-              <Button onClick={() => setIsAdding(false)} variant="outline" className="flex-1 border-slate-600">
+              <Button onClick={() => setIsAdding(false)} variant="outline" className="flex-1 border-slate-300 dark:border-slate-600 h-8 text-xs">
                 Cancel
               </Button>
             </div>
           </div>
         )}
 
-        {/* Alert List */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {alerts.length > 0 ? alerts.map((alert) => (
-            <div key={alert.id} className="p-4 rounded-lg bg-slate-900/30 border border-slate-700 hover:border-slate-600 transition-colors">
-              <div className="flex items-center justify-between mb-3">
+            <div key={alert.id} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
+              <div className="flex items-center justify-between mb-2">
                 <div>
-                  <h4 className="text-white font-semibold text-lg">{alert.symbol}</h4>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge className={alert.confluence_threshold === "100%" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
-                      {alert.confluence_threshold} Confluence
+                  <h4 className="text-slate-900 dark:text-white font-semibold text-sm">{alert.symbol}</h4>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <Badge className={alert.confluence_threshold === "100%" ? "bg-green-100 text-green-800 text-xs" : "bg-yellow-100 text-yellow-800 text-xs"}>
+                      {alert.confluence_threshold}
                     </Badge>
                     {alert.auto_execute && (
-                      <Badge className="bg-purple-100 text-purple-800">
+                      <Badge className="bg-purple-100 text-purple-800 text-xs">
                         <Zap className="w-3 h-3 mr-1" />
-                        Auto-Execute
+                        Auto
                       </Badge>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <Switch
                     checked={alert.is_active}
                     onCheckedChange={() => handleToggleAlert(alert)}
@@ -277,52 +275,51 @@ export default function AlertManagementPanel({ currentSymbol, currentAnalysis })
                     size="icon"
                     variant="ghost"
                     onClick={() => handleDeleteAlert(alert.id)}
-                    className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                    className="h-7 w-7 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3 h-3" />
                   </Button>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {(alert.notification_method === "browser" || alert.notification_method === "both") && (
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-600">
                     <Bell className="w-3 h-3 mr-1" />
                     In-App
                   </Badge>
                 )}
                 {(alert.notification_method === "mt5" || alert.notification_method === "both") && (
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-600">
                     <Zap className="w-3 h-3 mr-1" />
                     MT5
                   </Badge>
                 )}
                 {alert.is_active ? (
-                  <Badge className="bg-green-100 text-green-800 ml-auto">Active</Badge>
+                  <Badge className="bg-green-100 text-green-800 ml-auto text-xs">Active</Badge>
                 ) : (
-                  <Badge className="bg-gray-100 text-gray-800 ml-auto">Paused</Badge>
+                  <Badge className="bg-gray-100 dark:bg-gray-500/20 text-gray-800 dark:text-gray-300 ml-auto text-xs">Paused</Badge>
                 )}
               </div>
 
               {alert.last_triggered && (
-                <p className="text-slate-500 text-xs mt-2">
-                  Last triggered: {new Date(alert.last_triggered).toLocaleString()}
+                <p className="text-slate-600 dark:text-slate-500 text-xs mt-1.5">
+                  Last: {new Date(alert.last_triggered).toLocaleDateString()}
                 </p>
               )}
             </div>
           )) : (
-            <div className="text-center py-8">
-              <Bell className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400">No alerts configured</p>
-              <p className="text-slate-500 text-sm">Add an alert to get notified of high confluence setups</p>
+            <div className="text-center py-6">
+              <Bell className="w-10 h-10 text-slate-400 dark:text-slate-600 mx-auto mb-2" />
+              <p className="text-slate-700 dark:text-slate-400 text-sm">No alerts configured</p>
+              <p className="text-slate-600 dark:text-slate-500 text-xs">Add alert to get notified</p>
             </div>
           )}
         </div>
 
-        {/* Info Box */}
-        <div className="p-3 rounded-lg bg-blue-900/20 border border-blue-500/20">
-          <p className="text-blue-200 text-sm">
-            💡 Alerts trigger when your selected confluence threshold is met. Auto-execute requires MT5 connection.
+        <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/20">
+          <p className="text-blue-700 dark:text-blue-200 text-xs">
+            💡 Alerts trigger when confluence threshold is met.
           </p>
         </div>
       </CardContent>
