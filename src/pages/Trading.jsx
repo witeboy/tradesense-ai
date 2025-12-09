@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import { 
   Activity, 
-  TrendingUp,
+  Plus, 
+  TrendingUp, 
+  AlertCircle,
   BarChart3,
-  DollarSign
+  DollarSign,
+  Clock
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 import MT5AccountsTab from "../components/trading/MT5AccountsTab";
 import MT4AccountsTab from "../components/trading/MT4AccountsTab";
@@ -68,10 +74,10 @@ export default function TradingPage() {
 
       setStats({
         totalAccounts: mt5Accounts.length + mt4Accounts.length,
-        totalBalance: totalBalance,
-        totalEquity: totalEquity,
+        totalBalance: totalBalance || 0,
+        totalEquity: totalEquity || 0,
         openTrades: openTrades.length,
-        totalProfit: totalProfit,
+        totalProfit: totalProfit || 0,
         winRate: closedTrades.length > 0 ? (winningTrades.length / closedTrades.length) * 100 : 0
       });
     } catch (error) {
@@ -93,31 +99,31 @@ export default function TradingPage() {
   const statCards = [
     {
       title: "Total Accounts",
-      value: stats.totalAccounts,
-      subtitle: `$${stats.totalBalance.toFixed(2)} Total Balance`,
+      value: stats.totalAccounts || 0,
+      subtitle: `$${(stats.totalBalance || 0).toFixed(2)} Total Balance`,
       icon: Activity,
       color: "from-blue-500 to-cyan-500"
     },
     {
       title: "Total Equity",
-      value: `$${stats.totalEquity.toFixed(2)}`,
+      value: `$${(stats.totalEquity || 0).toFixed(2)}`,
       subtitle: `Across all accounts`,
       icon: DollarSign,
       color: "from-purple-500 to-pink-500"
     },
     {
       title: "Open Trades",
-      value: stats.openTrades,
+      value: stats.openTrades || 0,
       subtitle: `Active positions`,
       icon: TrendingUp,
       color: "from-green-500 to-emerald-500"
     },
     {
       title: "Total P/L",
-      value: `$${stats.totalProfit.toFixed(2)}`,
-      subtitle: `${stats.winRate.toFixed(1)}% Win Rate`,
+      value: `$${(stats.totalProfit || 0).toFixed(2)}`,
+      subtitle: `${(stats.winRate || 0).toFixed(1)}% Win Rate`,
       icon: BarChart3,
-      color: stats.totalProfit >= 0 ? "from-green-500 to-emerald-500" : "from-red-500 to-rose-500"
+      color: (stats.totalProfit || 0) >= 0 ? "from-green-500 to-emerald-500" : "from-red-500 to-rose-500"
     }
   ];
 
