@@ -128,29 +128,27 @@ export default function TradingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f0f2f5] via-white to-[#f0f2f5] dark:from-[#18191A] dark:via-[#242526] dark:to-[#18191A]">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-[#18191A] dark:via-[#242526] dark:to-[#18191A]">
+      <div className="container mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-4"
           >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1877F2] to-[#0866FF] flex items-center justify-center shadow-2xl shadow-[#1877F2]/30">
-              <BarChart3 className="w-8 h-8 text-white" />
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1877F2] to-[#0866FF] flex items-center justify-center shadow-lg">
+              <BarChart3 className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#1877F2] via-[#0866FF] to-[#1877F2] bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1877F2] via-[#0866FF] to-[#1877F2] bg-clip-text text-transparent">
               Trading Dashboard
             </h1>
           </div>
-          <p className="text-slate-600 dark:text-slate-400 text-lg">
-            💼 Manage your MT4/MT5 accounts and monitor trades
+          <p className="text-slate-600 dark:text-slate-400 text-sm">
+            Manage MT4/MT5 accounts and monitor trades
           </p>
           </motion.div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           {statCards.map((stat, idx) => (
             <motion.div
               key={idx}
@@ -159,21 +157,21 @@ export default function TradingPage() {
               transition={{ delay: idx * 0.1 }}
               whileHover={{ scale: 1.02, y: -4 }}
               >
-              <Card className="bg-white dark:bg-[#242526]/80 border-slate-200 dark:border-slate-700/50 backdrop-blur hover:border-[#1877F2]/50 transition-all duration-300 rounded-2xl shadow-xl">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-semibold text-white">
+              <Card className="bg-white dark:bg-[#242526]/80 border-slate-200 dark:border-slate-700/50 backdrop-blur hover:border-[#1877F2]/50 transition-all rounded-lg shadow">
+                <CardHeader className="flex flex-row items-center justify-between pb-2 p-3">
+                  <CardTitle className="text-xs font-medium text-slate-700 dark:text-slate-300">
                     {stat.title}
                   </CardTitle>
-                  <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color} shadow-lg`}>
-                    <stat.icon className="w-5 h-5 text-white" />
+                  <div className={`p-2 rounded-lg bg-gradient-to-br ${stat.color}`}>
+                    <stat.icon className="w-4 h-4 text-white" />
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-white">
+                <CardContent className="p-3 pt-0">
+                  <div className="text-xl font-bold text-slate-900 dark:text-white">
                     {stat.value}
                   </div>
                   {stat.subtitle && (
-                    <p className="text-xs text-slate-400 mt-1">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
                       {stat.subtitle}
                     </p>
                   )}
@@ -190,27 +188,27 @@ export default function TradingPage() {
           transition={{ delay: 0.4 }}
         >
           <Tabs defaultValue="mt5" className="w-full">
-            <TabsList className="grid w-full grid-cols-7 bg-slate-800/40 border border-slate-700/50 backdrop-blur">
-              <TabsTrigger value="mt5" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
-                MT5 Accounts
+            <TabsList className="grid w-full grid-cols-7 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-lg p-0.5">
+              <TabsTrigger value="mt5" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
+                MT5
               </TabsTrigger>
-              <TabsTrigger value="mt4" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
-                MT4 Accounts
+              <TabsTrigger value="mt4" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
+                MT4
               </TabsTrigger>
-              <TabsTrigger value="trades" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
-                Open Trades
+              <TabsTrigger value="trades" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
+                Trades
               </TabsTrigger>
-              <TabsTrigger value="history" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
-                Trade History
+              <TabsTrigger value="history" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
+                History
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
                 Analytics
               </TabsTrigger>
-              <TabsTrigger value="backtest" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
+              <TabsTrigger value="backtest" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
                 Backtest
               </TabsTrigger>
-              <TabsTrigger value="copy" className="data-[state=active]:bg-[#1877F2] data-[state=active]:text-white hover:bg-slate-700/50 transition-colors">
-                Copy Trading
+              <TabsTrigger value="copy" className="data-[state=active]:bg-white dark:data-[state=active]:bg-[#1877F2] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 text-xs rounded-md py-1.5">
+                Copy
               </TabsTrigger>
             </TabsList>
 
