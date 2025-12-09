@@ -40,7 +40,7 @@ export default function OpenTradesTab({ onUpdate }) {
       });
 
       if (response.data.success) {
-        toast.success(`Trade closed - P/L: $${response.data.final_profit?.toFixed(2)}`);
+        toast.success(`Trade closed - P/L: $${(response.data.final_profit || 0).toFixed(2)}`);
         loadTrades();
         if (onUpdate) onUpdate();
       } else {
@@ -156,15 +156,15 @@ export default function OpenTradesTab({ onUpdate }) {
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div>
                       <p className="text-slate-400 text-sm">Entry</p>
-                      <p className="text-white font-mono">{trade.entry_price?.toFixed(5)}</p>
+                      <p className="text-white font-mono">{(trade.entry_price || 0).toFixed(5)}</p>
                     </div>
                     <div>
                       <p className="text-slate-400 text-sm">Stop Loss</p>
-                      <p className="text-red-300 font-mono">{trade.stop_loss?.toFixed(5)}</p>
+                      <p className="text-red-300 font-mono">{(trade.stop_loss || 0).toFixed(5)}</p>
                     </div>
                     <div>
                       <p className="text-slate-400 text-sm">Take Profit</p>
-                      <p className="text-green-300 font-mono">{trade.take_profit?.toFixed(5)}</p>
+                      <p className="text-green-300 font-mono">{(trade.take_profit || 0).toFixed(5)}</p>
                     </div>
                     <div>
                       <p className="text-slate-400 text-sm">Lot Size</p>
