@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TrendingUp, AlertTriangle, CheckCircle2, Zap } from "lucide-react";
+import { Loader2, TrendingUp, AlertTriangle, CheckCircle2, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import ChartUploader from "../components/analyzer/ChartUploader";
@@ -724,59 +725,59 @@ Provide structured analysis with clear sentiment.`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f0f2f5] via-white to-[#f0f2f5] dark:from-[#18191A] dark:via-[#242526] dark:to-[#18191A]">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-[#18191A] dark:via-[#242526] dark:to-[#18191A]">
+      <div className="container mx-auto px-4 py-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1877F2] to-[#0866FF] flex items-center justify-center shadow-2xl shadow-[#1877F2]/30">
-              <Zap className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1877F2] to-[#0866FF] flex items-center justify-center shadow-lg">
+              <Zap className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#1877F2] via-[#0866FF] to-[#1877F2] bg-clip-text text-transparent drop-shadow-sm">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1877F2] via-[#0866FF] to-[#1877F2] bg-clip-text text-transparent">
               Professional Forex Analysis
             </h1>
           </div>
-          <p className="text-slate-600 dark:text-slate-400 text-lg">
-            🚀 Vision AI-Powered Multi-Timeframe Analysis with Advanced Confluence Detection
+          <p className="text-slate-600 dark:text-slate-400 text-sm">
+            Vision AI-Powered Multi-Timeframe Analysis
           </p>
         </motion.div>
 
         {error && (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-            <Alert variant="destructive" className="mb-6 bg-red-900/20 border-red-500/30 backdrop-blur rounded-2xl shadow-xl">
-              <AlertTriangle className="h-4 w-4 text-red-400 mr-2" />
-              <AlertDescription className="text-red-200">{error}</AlertDescription>
+            <Alert variant="destructive" className="mb-3 bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-500/30 rounded-lg">
+              <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mr-2" />
+              <AlertDescription className="text-red-700 dark:text-red-200">{error}</AlertDescription>
             </Alert>
           </motion.div>
         )}
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-6">
+        <div className="grid lg:grid-cols-[1fr_380px] gap-4">
           {/* LEFT PANEL */}
-          <div className="space-y-6">
-            <Card className="bg-white dark:bg-[#242526]/80 border-slate-200 dark:border-slate-700/50 backdrop-blur-xl p-6 hover:border-[#1877F2]/50 transition-all duration-300 rounded-3xl shadow-2xl">
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div className="space-y-4">
+            <Card className="bg-white dark:bg-[#242526]/80 border-slate-200 dark:border-slate-700/50 backdrop-blur p-4 hover:border-[#1877F2]/50 transition-all rounded-xl shadow-lg">
+              <div className="grid md:grid-cols-2 gap-3 mb-3">
                 <div>
-                  <Label className="text-slate-900 dark:text-white font-semibold mb-2 block">Instrument/Symbol *</Label>
+                  <Label className="text-slate-900 dark:text-white font-medium mb-1.5 block text-sm">Instrument *</Label>
                   <Input
                     value={instrument}
                     onChange={(e) => setInstrument(e.target.value)}
-                    placeholder="e.g., EURUSD, XAUUSD, US30"
-                    className="bg-slate-50 dark:bg-[#3A3B3C] border-slate-300 dark:border-slate-600/50 text-slate-900 dark:text-white focus:border-[#1877F2] focus:ring-2 focus:ring-[#1877F2]/30 transition-all rounded-xl"
+                    placeholder="e.g., EURUSD"
+                    className="bg-slate-50 dark:bg-[#3A3B3C] border-slate-300 dark:border-slate-600/50 text-slate-900 dark:text-white focus:border-[#1877F2] rounded-lg h-9"
                   />
                 </div>
-                
+
                 <div>
-                  <Label className="text-white font-semibold mb-2 block">Primary Timeframe *</Label>
+                  <Label className="text-slate-900 dark:text-white font-medium mb-1.5 block text-sm">Primary Timeframe *</Label>
                   <Select value={primaryTimeframe} onValueChange={setPrimaryTimeframe}>
-                    <SelectTrigger className="bg-[#3A3B3C] border-slate-600/50 text-white hover:border-[#1877F2] transition-all rounded-xl">
-                      <SelectValue placeholder="Select primary TF" />
+                    <SelectTrigger className="bg-slate-50 dark:bg-[#3A3B3C] border-slate-300 dark:border-slate-600/50 text-slate-900 dark:text-white hover:border-[#1877F2] rounded-lg h-9">
+                      <SelectValue placeholder="Select TF" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#242526] border-slate-700 rounded-2xl">
+                    <SelectContent className="bg-white dark:bg-[#242526] border-slate-200 dark:border-slate-700 rounded-lg">
                       {allTimeframes.map((tf) => (
-                        <SelectItem key={tf.value} value={tf.value} className="text-white hover:bg-slate-700">
+                        <SelectItem key={tf.value} value={tf.value} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700">
                           {tf.label}
                         </SelectItem>
                       ))}
@@ -785,8 +786,8 @@ Provide structured analysis with clear sentiment.`;
                 </div>
               </div>
 
-              <div className="mb-4">
-                <Label className="text-white font-semibold mb-2 block">Multi-Timeframe Analysis *</Label>
+              <div className="mb-3">
+                <Label className="text-slate-900 dark:text-white font-medium mb-1.5 block text-sm">Multi-Timeframe *</Label>
                 <MultiSelect
                   options={allTimeframes}
                   selected={selectedTimeframes}
@@ -795,15 +796,15 @@ Provide structured analysis with clear sentiment.`;
                 />
               </div>
 
-              <div className="mb-4">
-                <Label className="text-white font-semibold mb-2 block">Current Price (Optional)</Label>
+              <div className="mb-3">
+                <Label className="text-slate-900 dark:text-white font-medium mb-1.5 block text-sm">Current Price</Label>
                 <Input
                   value={currentPrice}
                   onChange={(e) => setCurrentPrice(e.target.value)}
                   placeholder="e.g., 1.0950"
                   type="number"
                   step="0.0001"
-                  className="bg-[#3A3B3C] border-slate-600/50 text-white focus:border-[#1877F2] focus:ring-2 focus:ring-[#1877F2]/30 transition-all rounded-xl"
+                  className="bg-slate-50 dark:bg-[#3A3B3C] border-slate-300 dark:border-slate-600/50 text-slate-900 dark:text-white focus:border-[#1877F2] rounded-lg h-9"
                 />
               </div>
 
@@ -820,43 +821,37 @@ Provide structured analysis with clear sentiment.`;
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="relative"
-                >
-                  <Card className="bg-gradient-to-br from-[#1877F2]/10 to-[#0866FF]/10 border-[#1877F2]/30 backdrop-blur-xl overflow-hidden rounded-3xl shadow-2xl">
-                    <CardContent className="p-8">
+                  >
+                  <Card className="bg-blue-50 dark:bg-gradient-to-br dark:from-[#1877F2]/10 dark:to-[#0866FF]/10 border-blue-200 dark:border-[#1877F2]/30 backdrop-blur overflow-hidden rounded-xl">
+                    <CardContent className="p-6">
                       <div className="flex flex-col items-center justify-center space-y-6">
-                        {/* Animated Icon */}
                         <div className="relative">
-                          <div className="absolute inset-0 bg-[#1877F2]/30 rounded-full animate-ping" />
-                          <div className="relative bg-gradient-to-br from-[#1877F2] to-[#0866FF] p-4 rounded-full shadow-2xl shadow-[#1877F2]/50">
-                            <Zap className="w-12 h-12 text-white animate-pulse" />
+                          <div className="relative bg-gradient-to-br from-[#1877F2] to-[#0866FF] p-3 rounded-full shadow-lg">
+                            <Zap className="w-10 h-10 text-white animate-pulse" />
                           </div>
                         </div>
-                        
-                        {/* Progress Text */}
-                        <div className="text-center space-y-2">
-                          <h3 className="text-2xl font-bold text-white">🚀 Analyzing Chart</h3>
-                          <p className="text-slate-300 text-lg">{analysisStep}</p>
+
+                        <div className="text-center space-y-1">
+                          <h3 className="text-xl font-bold text-slate-900 dark:text-white">Analyzing Chart</h3>
+                          <p className="text-slate-700 dark:text-slate-300 text-sm">{analysisStep}</p>
                         </div>
 
-                        {/* Progress Bar */}
-                        <div className="w-full max-w-md space-y-2">
-                          <div className="w-full bg-slate-800/50 rounded-full h-3 overflow-hidden shadow-inner">
+                        <div className="w-full max-w-md space-y-1.5">
+                          <div className="w-full bg-slate-200 dark:bg-slate-800/50 rounded-full h-2 overflow-hidden">
                             <motion.div
-                              className="h-full bg-gradient-to-r from-[#1877F2] via-[#0866FF] to-[#1877F2] rounded-full shadow-lg"
+                              className="h-full bg-gradient-to-r from-[#1877F2] to-[#0866FF] rounded-full"
                               initial={{ width: 0 }}
                               animate={{ width: `${analysisProgress}%` }}
                               transition={{ duration: 0.5, ease: "easeOut" }}
                             />
-                          </div>
-                          <div className="flex justify-between text-sm text-slate-400">
+                            </div>
+                            <div className="flex justify-between text-xs text-slate-600 dark:text-slate-400">
                             <span>Progress</span>
                             <span className="font-mono font-semibold text-[#1877F2]">{analysisProgress}%</span>
-                          </div>
-                        </div>
+                            </div>
+                            </div>
 
-                        {/* Step Indicators */}
-                        <div className="grid grid-cols-5 gap-2 w-full max-w-md">
+                        <div className="grid grid-cols-5 gap-1.5 w-full max-w-md">
                           {[
                             { label: "Upload", threshold: 10 },
                             { label: "Extract", threshold: 25 },
@@ -865,19 +860,19 @@ Provide structured analysis with clear sentiment.`;
                             { label: "Complete", threshold: 100 }
                           ].map((step, idx) => (
                             <div key={idx} className="flex flex-col items-center">
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                                 analysisProgress >= step.threshold 
-                                  ? 'bg-gradient-to-br from-[#1877F2] to-[#0866FF] shadow-lg shadow-[#1877F2]/50' 
-                                  : 'bg-slate-700/50'
+                                  ? 'bg-gradient-to-br from-[#1877F2] to-[#0866FF]' 
+                                  : 'bg-slate-300 dark:bg-slate-700/50'
                               }`}>
                                 {analysisProgress >= step.threshold ? (
-                                  <CheckCircle2 className="w-5 h-5 text-white" />
+                                  <CheckCircle2 className="w-4 h-4 text-white" />
                                 ) : (
-                                  <span className="text-slate-400 text-sm">{idx + 1}</span>
+                                  <span className="text-slate-600 dark:text-slate-400 text-xs">{idx + 1}</span>
                                 )}
                               </div>
-                              <span className={`text-xs mt-2 transition-colors ${
-                                analysisProgress >= step.threshold ? 'text-[#1877F2]' : 'text-slate-500'
+                              <span className={`text-xs mt-1 transition-colors ${
+                                analysisProgress >= step.threshold ? 'text-[#1877F2]' : 'text-slate-500 dark:text-slate-500'
                               }`}>
                                 {step.label}
                               </span>
@@ -896,35 +891,34 @@ Provide structured analysis with clear sentiment.`;
                   animate={{ opacity: 1, y: 0 }}
                 >
                   {uploadedImage && (
-                    <Card className="bg-[#242526]/80 border-slate-700/50 backdrop-blur-xl mb-6 overflow-hidden hover:border-[#1877F2]/50 transition-all duration-300 rounded-3xl shadow-2xl">
-                      <CardContent className="p-4">
-                        <img src={uploadedImage} alt="Chart" className="w-full rounded-2xl shadow-2xl" />
+                    <Card className="bg-white dark:bg-[#242526]/80 border-slate-200 dark:border-slate-700/50 backdrop-blur mb-3 overflow-hidden rounded-lg shadow">
+                      <CardContent className="p-2">
+                        <img src={uploadedImage} alt="Chart" className="w-full rounded-lg" />
                       </CardContent>
                     </Card>
                   )}
 
-                  {/* Indicator Confluence Panel - Added Here */}
                   {analysisData.confluence_breakdown && (
-                    <div className="mb-6">
+                    <div className="mb-3">
                       <IndicatorConfluencePanel analysis={analysisData} />
                     </div>
                   )}
 
                   {analysisData.confidence_score < 70 && (
-                    <Alert className="mb-6 bg-yellow-900/20 border-yellow-500/30 backdrop-blur rounded-2xl shadow-lg">
-                      <AlertTriangle className="h-4 h-4 text-yellow-400 mr-2" />
-                      <AlertDescription className="text-yellow-200">
-                        ⚠️ Low confidence trade ({analysisData.confidence_score}%) - Consider waiting for better setup
+                    <Alert className="mb-3 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300 dark:border-yellow-500/30 rounded-lg">
+                      <AlertTriangle className="h-4 h-4 text-yellow-600 dark:text-yellow-400 mr-2" />
+                      <AlertDescription className="text-yellow-800 dark:text-yellow-200 text-sm">
+                        Low confidence ({analysisData.confidence_score}%) - Consider waiting
                       </AlertDescription>
                     </Alert>
                   )}
 
                   <Tabs defaultValue="technical" className="w-full">
-                    <TabsList className="grid w-full grid-cols-4 bg-[#242526] border border-slate-700/50 backdrop-blur rounded-2xl p-1">
-                      <TabsTrigger value="technical" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1877F2] data-[state=active]:to-[#0866FF] data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl transition-all">Technical</TabsTrigger>
-                      <TabsTrigger value="candlestick" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1877F2] data-[state=active]:to-[#0866FF] data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl transition-all">Candlestick</TabsTrigger>
-                      <TabsTrigger value="fundamental" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1877F2] data-[state=active]:to-[#0866FF] data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl transition-all">News/Events</TabsTrigger>
-                      <TabsTrigger value="topdown" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1877F2] data-[state=active]:to-[#0866FF] data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl transition-all">Top-Down</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-4 bg-slate-100 dark:bg-[#242526] border border-slate-200 dark:border-slate-700/50 rounded-lg p-0.5">
+                      <TabsTrigger value="technical" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gradient-to-r dark:data-[state=active]:from-[#1877F2] dark:data-[state=active]:to-[#0866FF] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 rounded-md text-sm py-1.5">Technical</TabsTrigger>
+                      <TabsTrigger value="candlestick" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gradient-to-r dark:data-[state=active]:from-[#1877F2] dark:data-[state=active]:to-[#0866FF] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 rounded-md text-sm py-1.5">Candlestick</TabsTrigger>
+                      <TabsTrigger value="fundamental" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gradient-to-r dark:data-[state=active]:from-[#1877F2] dark:data-[state=active]:to-[#0866FF] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 rounded-md text-sm py-1.5">News</TabsTrigger>
+                      <TabsTrigger value="topdown" className="data-[state=active]:bg-white dark:data-[state=active]:bg-gradient-to-r dark:data-[state=active]:from-[#1877F2] dark:data-[state=active]:to-[#0866FF] data-[state=active]:text-slate-900 dark:data-[state=active]:text-white data-[state=active]:shadow text-slate-700 dark:text-slate-300 rounded-md text-sm py-1.5">Top-Down</TabsTrigger>
                     </TabsList>
                     
                     <TabsContent value="technical">
@@ -950,20 +944,20 @@ Provide structured analysis with clear sentiment.`;
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-center py-20"
+                  className="text-center py-12"
                 >
-                  <div className="inline-block p-8 bg-gradient-to-br from-[#1877F2]/10 to-[#0866FF]/10 rounded-3xl backdrop-blur mb-4 shadow-2xl">
-                    <TrendingUp className="w-20 h-20 text-[#1877F2] mx-auto" />
+                  <div className="inline-block p-6 bg-blue-50 dark:bg-gradient-to-br dark:from-[#1877F2]/10 dark:to-[#0866FF]/10 rounded-xl backdrop-blur mb-3">
+                    <TrendingUp className="w-16 h-16 text-[#1877F2] mx-auto" />
                   </div>
-                  <p className="text-xl mb-2 text-white font-bold">📊 Upload a chart to get started</p>
-                  <p className="text-slate-400">Get comprehensive AI-powered analysis with vision-based indicator extraction</p>
+                  <p className="text-lg mb-1 text-slate-900 dark:text-white font-semibold">Upload a chart to get started</p>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">Get AI-powered analysis with vision extraction</p>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
           {/* RIGHT PANEL */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {analysisData && (
               <TradeStrategyPanel analysis={analysisData} />
             )}
@@ -980,13 +974,10 @@ Provide structured analysis with clear sentiment.`;
       {/* Floating Menu */}
       <FloatingMenu />
       
-      {/* Disclaimer Footer */}
-      <footer className="bg-slate-900/50 border-t border-slate-800 mt-16 py-6">
+      <footer className="bg-slate-100 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 mt-8 py-4">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-slate-400 text-sm">
-            ⚠️ <strong>Disclaimer:</strong> TradeSense AI is not a financial expert or advisor and is not liable for any losses. 
-            All analysis provided is for educational and informational purposes only. Trading involves substantial risk. 
-            Always consult with a qualified financial professional before making investment decisions.
+          <p className="text-slate-600 dark:text-slate-400 text-xs">
+            ⚠️ <strong>Disclaimer:</strong> TradeSense AI is not a financial advisor. All analysis is for educational purposes only.
           </p>
         </div>
       </footer>
