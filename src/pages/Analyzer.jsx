@@ -113,37 +113,48 @@ CRITICAL NUMERIC VALUES:
 Return ONLY exact numeric values and specified enums. Be extremely precise.`;
 
       const chartMetrics = await base44.integrations.Core.InvokeLLM({
-        prompt: visionPrompt,
-        file_urls: [file_url],
-        add_context_from_internet: false,
-        response_json_schema: {
-          type: "object",
-          properties: {
-            latest_price: { type: "number" },
-            ema20: { type: "number" },
-            ema50: { type: "number" },
-            ema200: { type: "number" },
-            price_position: { type: "string", enum: ["above_all", "below_all", "between"] },
-            ema_ordering: { type: "string", enum: ["bullish_order", "bearish_order", "neutral_order"] },
-            market_structure: { type: "string", enum: ["higher_structure", "lower_structure", "sideways_structure"] },
-            adx_value: { type: "number" },
-            adx_direction: { type: "string", enum: ["rising", "falling", "flat"] },
-            di_comparison: { type: "string", enum: ["di_plus_above", "di_minus_above", "neutral"] },
-            rsi_value: { type: "number" },
-            rsi_momentum: { type: "string", enum: ["rising_bullish", "falling_bearish", "neutral"] },
-            macd_line: { type: "number" },
-            macd_signal: { type: "number" },
-            macd_histogram: { type: "number" },
-            macd_histogram_direction: { type: "string", enum: ["increasing", "decreasing", "flat"] },
-            swing_high: { type: "number" },
-            swing_low: { type: "number" },
-            candlestick_pattern: { type: "string" },
-            pattern_location: { type: "string", enum: ["near_20ema", "near_50ema", "near_200ema", "at_support", "at_resistance", "none"] },
-            entry_zone_suggestion: { type: "string", enum: ["current_price", "ema20_pullback", "ema50_pullback", "support_bounce", "resistance_break", "breakout_pullback", "retest_zone", "no_clear_zone"] }
-          },
-          required: ["latest_price", "ema20", "ema50", "ema200", "price_position", "ema_ordering", "adx_value", "rsi_value", "macd_line", "macd_signal", "macd_histogram"]
-        }
+       prompt: visionPrompt,
+       file_urls: [file_url],
+       add_context_from_internet: false,
+       response_json_schema: {
+         type: "object",
+         properties: {
+           latest_price: { type: "number" },
+           ema20: { type: "number" },
+           ema50: { type: "number" },
+           ema200: { type: "number" },
+           price_position: { type: "string", enum: ["above_all", "below_all", "between"] },
+           ema_ordering: { type: "string", enum: ["bullish_order", "bearish_order", "neutral_order"] },
+           market_structure: { type: "string", enum: ["higher_structure", "lower_structure", "sideways_structure"] },
+           adx_value: { type: "number" },
+           adx_direction: { type: "string", enum: ["rising", "falling", "flat"] },
+           di_comparison: { type: "string", enum: ["di_plus_above", "di_minus_above", "neutral"] },
+           rsi_value: { type: "number" },
+           rsi_momentum: { type: "string", enum: ["rising_bullish", "falling_bearish", "neutral"] },
+           macd_line: { type: "number" },
+           macd_signal: { type: "number" },
+           macd_histogram: { type: "number" },
+           macd_histogram_direction: { type: "string", enum: ["increasing", "decreasing", "flat"] },
+           swing_high: { type: "number" },
+           swing_low: { type: "number" },
+           candlestick_pattern: { type: "string" },
+           pattern_location: { type: "string", enum: ["near_20ema", "near_50ema", "near_200ema", "at_support", "at_resistance", "none"] },
+           entry_zone_suggestion: { type: "string", enum: ["current_price", "ema20_pullback", "ema50_pullback", "support_bounce", "resistance_break", "breakout_pullback", "retest_zone", "no_clear_zone"] }
+         },
+         required: ["latest_price", "ema20", "ema50", "ema200", "price_position", "ema_ordering", "adx_value", "rsi_value", "macd_line", "macd_signal", "macd_histogram"]
+       }
       });
+
+      // Ensure all required fields have default values if missing
+      chartMetrics.swing_high = chartMetrics.swing_high || chartMetrics.latest_price * 1.01;
+      chartMetrics.swing_low = chartMetrics.swing_low || chartMetrics.latest_price * 0.99;
+      chartMetrics.candlestick_pattern = chartMetrics.candlestick_pattern || "none";
+      chartMetrics.pattern_location = chartMetrics.pattern_location || "none";
+      chartMetrics.adx_direction = chartMetrics.adx_direction || "flat";
+      chartMetrics.di_comparison = chartMetrics.di_comparison || "neutral";
+      chartMetrics.entry_zone_suggestion = chartMetrics.entry_zone_suggestion || "current_price";
+      chartMetrics.rsi_momentum = chartMetrics.rsi_momentum || "neutral";
+      chartMetrics.macd_histogram_direction = chartMetrics.macd_histogram_direction || "flat";
 
       setAnalysisStep("Computing indicator confluence with exact trading logic...");
       setAnalysisProgress(40);
