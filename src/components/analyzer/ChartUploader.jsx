@@ -23,30 +23,29 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
     }
   };
 
-  const handlePaste = (e) => {
-    const items = e.clipboardData?.items;
-    if (!items) return;
 
-    for (let item of items) {
-      if (item.type.startsWith('image/')) {
-        const file = item.getAsFile();
-        if (file) {
-          onUpload(file);
-        }
-        break;
-      }
-    }
-  };
 
   useEffect(() => {
-    const zone = dropZoneRef.current;
-    if (!zone) return;
+    const handleDocumentPaste = (e) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
 
-    zone.addEventListener('paste', handlePaste);
-    return () => {
-      zone.removeEventListener('paste', handlePaste);
+      for (let item of items) {
+        if (item.type.startsWith('image/')) {
+          const file = item.getAsFile();
+          if (file) {
+            onUpload(file);
+          }
+          break;
+        }
+      }
     };
-  }, []);
+
+    document.addEventListener('paste', handleDocumentPaste);
+    return () => {
+      document.removeEventListener('paste', handleDocumentPaste);
+    };
+  }, [onUpload]);
 
   return (
     <Card className="bg-slate-800/50 border-slate-700 backdrop-blur">
