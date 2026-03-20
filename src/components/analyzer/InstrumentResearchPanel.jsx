@@ -142,7 +142,7 @@ Be concise and specific with numbers.`,
             </div>
 
             {/* Catalysts */}
-            {researchData.upcoming_catalysts && researchData.upcoming_catalysts.length > 0 && (
+            {Array.isArray(researchData.upcoming_catalysts) && researchData.upcoming_catalysts.length > 0 && (
               <div className="p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-500/30">
                 <p className="text-slate-900 dark:text-white font-semibold text-xs mb-1">📅 Next 7 Days</p>
                 <ul className="space-y-0.5">
