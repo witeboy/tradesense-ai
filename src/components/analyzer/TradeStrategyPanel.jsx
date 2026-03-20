@@ -105,10 +105,46 @@ export default function TradeStrategyPanel({ analysis }) {
                   </div>
                 )}
 
-                <div className="p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
-                  <p className="text-slate-700 dark:text-slate-300 text-xs">
-                    💡 Set limit orders at these levels
-                  </p>
+                <div className="p-3 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
+                  <p className="text-slate-700 dark:text-slate-400 text-xs font-medium mb-2">📊 Limit Order Entry Zone</p>
+                  
+                  {analysis.technical_analysis.ema21 && (
+                    <>
+                      <div className="relative h-12 bg-slate-100 dark:bg-slate-800/50 rounded-lg p-2 mb-2 overflow-hidden">
+                        {/* Range visualization */}
+                        <div className="absolute inset-0 flex items-center px-2">
+                          <div className="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full relative">
+                            <div className="absolute top-0 left-0 right-0 h-1.5 bg-slate-900 dark:bg-slate-300 rounded-full opacity-40" style={{
+                              width: '100%'
+                            }}></div>
+                          </div>
+                        </div>
+                        
+                        {/* Entry points */}
+                        <div className="relative h-full flex items-center justify-between">
+                          <div className="flex flex-col items-center">
+                            <div className="w-2 h-2 bg-slate-900 dark:bg-white rounded-full border-2 border-white dark:border-slate-800"></div>
+                            <span className="text-xs font-mono font-bold text-slate-900 dark:text-white mt-1">{formatPrice(plan.entry)}</span>
+                          </div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400 font-medium">ENTRY RANGE</div>
+                          <div className="flex flex-col items-center">
+                            <div className="w-2 h-2 bg-slate-900 dark:bg-white rounded-full border-2 border-white dark:border-slate-800"></div>
+                            <span className="text-xs font-mono font-bold text-slate-900 dark:text-white mt-1">{formatPrice(analysis.technical_analysis.ema21)}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-slate-600 dark:text-slate-400">Range Spread</span>
+                          <span className="text-slate-900 dark:text-white font-mono font-bold">
+                            {(Math.abs(plan.entry - analysis.technical_analysis.ema21) * (instrument.includes('JPY') ? 100 : 10000)).toFixed(1)} pips
+                          </span>
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-400 text-xs">Set limit orders anywhere in this zone</p>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             ) : (
