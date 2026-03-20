@@ -90,30 +90,29 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {disabled ? 'Complete Settings First' : 'Upload Chart Image'}
+                    {disabled ? 'Complete Settings First' : 'Upload Chart & Analyze'}
                   </h3>
                   <p className="text-slate-400 mb-4">
                    {disabled 
-                     ? 'Please fill in instrument and timeframe above'
-                     : 'Drop, paste or click to browse'
+                     ? 'Please fill in Instrument, Primary Timeframe, and Multi-Timeframe above'
+                     : 'Drop, paste or click to upload your chart'
                    }
                   </p>
-                  {!disabled && (
-                    <div className="flex justify-center gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-slate-600 text-slate-200 hover:bg-slate-700"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          fileInputRef.current?.click();
-                        }}
-                      >
-                        <Upload className="w-4 h-4 mr-2" />
-                        Browse Files
-                      </Button>
-                    </div>
-                  )}
+                  <div className="flex justify-center gap-2">
+                    <Button
+                      variant={disabled ? "outline" : "default"}
+                      size="sm"
+                      disabled={disabled}
+                      className={`${disabled ? 'border-slate-600 text-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1877F2] to-[#0866FF] text-white hover:from-[#166FE5] hover:to-[#0757D6]'}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        fileInputRef.current?.click();
+                      }}
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      {disabled ? 'Complete Form First' : 'Upload & Analyze'}
+                    </Button>
+                  </div>
                 </div>
                 <p className="text-xs text-slate-500">
                   Supported formats: PNG, JPG, PDF
