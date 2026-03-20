@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
   const fileInputRef = useRef(null);
+  const dropZoneRef = useRef(null);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -22,6 +23,31 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
     }
   };
 
+  const handlePaste = (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    for (let item of items) {
+      if (item.type.startsWith('image/')) {
+        const file = item.getAsFile();
+        if (file) {
+          onUpload(file);
+        }
+        break;
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    const zone = dropZoneRef.current;
+    if (!zone) return;
+
+    zone.addEventListener('paste', handlePaste);
+    return () => {
+      zone.removeEventListener('paste', handlePaste);
+    };
+  }, []);
+
   return (
     <Card className="bg-slate-800/50 border-slate-700 backdrop-blur">
       <CardContent className="p-0">
@@ -30,6 +56,8 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
           className={`relative ${disabled ? 'opacity-50' : ''}`}
         >
           <div
+            ref={dropZoneRef}
+            tabIndex={0}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
@@ -66,10 +94,10 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
                     {disabled ? 'Complete Settings First' : 'Upload Chart Image'}
                   </h3>
                   <p className="text-slate-400 mb-4">
-                    {disabled 
-                      ? 'Please fill in instrument and timeframe above'
-                      : 'Drop your chart here or click to browse'
-                    }
+                   {disabled 
+                     ? 'Please fill in instrument and timeframe above'
+                     : 'Drop, paste or click to browse'
+                   }
                   </p>
                   {!disabled && (
                     <div className="flex justify-center gap-2">
