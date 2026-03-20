@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { TrendingUp, Zap, Target } from "lucide-react";
 
 export default function StrategySignalsPanel({ strategiesAnalysis }) {
-  if (!strategiesAnalysis || strategiesAnalysis.strategies.length === 0) {
+  if (!strategiesAnalysis || !strategiesAnalysis.strategies || strategiesAnalysis.strategies.length === 0) {
     return (
       <Card className="bg-white dark:bg-[#242526]/90 border-slate-200 dark:border-slate-700/50 backdrop-blur rounded-xl shadow-lg">
         <CardContent className="p-4 text-center">
@@ -103,20 +103,20 @@ export default function StrategySignalsPanel({ strategiesAnalysis }) {
       </div>
 
       {/* Recommendation */}
-      {strategies.length > 0 && (
+      {strategies && strategies.length > 0 && (
         <Card className="bg-gradient-to-br from-green-50 dark:from-green-900/20 to-emerald-50 dark:to-emerald-900/20 border-green-200 dark:border-green-500/40 rounded-lg shadow">
           <CardContent className="p-3">
             <div className="flex items-start gap-2">
               <Target className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5" />
               <div>
-                <p className="text-slate-900 dark:text-white font-semibold text-xs mb-1">Recommended Action</p>
+                <p className="text-slate-900 dark:text-white font-semibold text-xs mb-1">Best Strategy</p>
                 <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed">
-                  {strategies[0].name} shows the highest win rate ({strategies[0].winRate}%). 
+                  {strategies[0]?.name} ({strategies[0]?.winRate}% win). 
                   {confluencePercentage >= 70 
-                    ? ' Multiple strategies agree - high conviction setup. Increase position size.'
+                    ? ' High confluence detected.'
                     : confluencePercentage >= 50
-                    ? ' Good setup with moderate confluence. Normal position size.'
-                    : ' Limited strategy confluence. Wait for additional confirmation.'}
+                    ? ' Moderate confluence.'
+                    : ' Low confluence - add confirmation.'}
                 </p>
               </div>
             </div>
