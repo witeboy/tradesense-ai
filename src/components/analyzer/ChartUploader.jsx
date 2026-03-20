@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Upload, FileImage, Loader2 } from "lucide-react";
@@ -38,7 +38,7 @@ export default function ChartUploader({ onUpload, isAnalyzing, disabled }) {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const zone = dropZoneRef.current;
     if (!zone) return;
 
