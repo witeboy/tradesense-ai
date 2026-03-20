@@ -20,6 +20,8 @@ import AlertManagementPanel from "../components/analyzer/AlertManagementPanel";
 import TopDownAnalysisTab from "../components/analyzer/TopDownAnalysisTab";
 import FundamentalsNewsPanel from "../components/analyzer/FundamentalsNewsPanel";
 import AutoExecutePanel from "../components/analyzer/AutoExecutePanel";
+import StrategySignalsPanel from "../components/analyzer/StrategySignalsPanel";
+import InstrumentResearchPanel from "../components/analyzer/InstrumentResearchPanel";
 import FloatingMenu from "../components/FloatingMenu";
 
 export default function AnalyzerPage() {
@@ -512,10 +514,22 @@ Provide structured analysis with clear sentiment.`;
         fundamentalWeight = 0;
       }
 
+      setAnalysisStep("Evaluating 20+ trading strategies...");
+      setAnalysisProgress(80);
+
+      // STEP 7: Strategy Analysis
+      const strategiesResponse = await base44.functions.invoke('analyzeStrategies', {
+        chartMetrics: chartMetrics,
+        instrument: instrument,
+        primaryTimeframe: primaryTimeframe
+      });
+
+      const strategiesAnalysis = strategiesResponse.data?.strategiesAnalysis;
+
       setAnalysisStep("Calculating final confidence score...");
       setAnalysisProgress(85);
 
-      // STEP 7: Calculate Final Confidence Score
+      // STEP 8: Calculate Final Confidence Score
       const finalConfidenceScore = Math.round(
         (confluenceScore * 0.75) + 
         (topDownAlignment * 0.10) + 
@@ -525,7 +539,7 @@ Provide structured analysis with clear sentiment.`;
       setAnalysisStep("Generating trade plan...");
       setAnalysisProgress(95);
 
-      // STEP 8: Build Trade Plan with Risk Management
+      // STEP 9: Build Trade Plan with Risk Management
       let trade_plan = null;
       
       let effectiveEntryPrice;
@@ -702,6 +716,7 @@ Provide structured analysis with clear sentiment.`;
           topdown_weight: topDownAlignment * 0.10,
           fundamental_weight: fundamentalWeight * 0.15
         },
+        strategies_analysis: strategiesAnalysis,
         trend_consensus: trend_consensus,
         invalidation_rule: trade_plan ? `If price closes ${trade_plan.action === 'BUY' ? 'below' : 'above'} ${trade_plan.stop_loss}, exit immediately.` : "N/A",
         signals: indicators.map(i => `${i.name}: ${i.signal} (${i.score}/${i.max_score})`),
@@ -958,6 +973,13 @@ Provide structured analysis with clear sentiment.`;
 
           {/* RIGHT PANEL */}
           <div className="space-y-4">
+            {analysisData && (
+              <>
+                <InstrumentResearchPanel instrument={instrument} />
+                <StrategySignalsPanel strategiesAnalysis={analysisData.strategies_analysis} />
+              </>
+            )}
+
             {analysisData && (
               <TradeStrategyPanel analysis={analysisData} />
             )}
