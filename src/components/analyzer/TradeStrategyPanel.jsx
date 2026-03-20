@@ -55,67 +55,65 @@ export default function TradeStrategyPanel({ analysis }) {
         </CardHeader>
 
         <CardContent className="space-y-3 p-4 pt-0">
-          <div className={`p-3 rounded-lg border ${
-            isLong ? 'bg-green-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-300 dark:border-green-500/40' : 'bg-red-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-300 dark:border-red-500/40'
-          }`}>
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
             <div className="flex items-center gap-1.5 mb-2">
-              <Target className={`w-4 h-4 ${isLong ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />
-              <h4 className={`font-semibold text-sm ${isLong ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`}>
+              <Target className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <h4 className="font-semibold text-sm text-slate-900 dark:text-white">
                 Entry Price Range
               </h4>
             </div>
 
             {hasEntryRanges ? (
               <div className="space-y-2">
-                <div className="p-2.5 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-blue-200 dark:border-[#1877F2]/30">
+                <div className="p-2.5 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-slate-700 dark:text-white text-xs font-medium">Upper Range (Current)</span>
-                    <Badge className="bg-gradient-to-r from-[#1877F2] to-[#0866FF] text-white text-xs px-2 py-0.5 rounded-full">
+                    <Badge className="bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs px-2 py-0.5 rounded-full">
                       Market
                     </Badge>
                   </div>
-                  <p className="text-[#1877F2] font-mono text-xl font-bold">
+                  <p className="text-slate-900 dark:text-white font-mono text-xl font-bold">
                     {formatPrice(plan.entry)}
                   </p>
                 </div>
 
                 {analysis.technical_analysis.ema21 && (
-                  <div className="p-2 rounded-lg bg-green-50 dark:bg-slate-900/40 border border-green-300 dark:border-green-500/20">
+                  <div className="p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
                     <div className="flex justify-between items-center mb-0.5">
                       <span className="text-slate-700 dark:text-slate-300 text-xs font-medium">Lower (20 EMA)</span>
-                      <Badge className="bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-500/30 text-xs px-1.5 py-0">
+                      <Badge className="bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs px-1.5 py-0">
                         Preferred
                       </Badge>
                     </div>
-                    <p className="text-green-600 dark:text-green-400 font-mono text-lg font-bold">
+                    <p className="text-slate-900 dark:text-white font-mono text-lg font-bold">
                       {formatPrice(analysis.technical_analysis.ema21)}
                     </p>
                   </div>
                 )}
 
                 {analysis.technical_analysis.ema50 && (
-                  <div className="p-2 rounded-lg bg-yellow-50 dark:bg-slate-900/40 border border-yellow-300 dark:border-yellow-500/20">
+                  <div className="p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
                     <div className="flex justify-between items-center mb-0.5">
                       <span className="text-slate-700 dark:text-slate-300 text-xs font-medium">Alternative (50 EMA)</span>
-                      <Badge className="bg-yellow-100 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-500/30 text-xs px-1.5 py-0">
+                      <Badge className="bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs px-1.5 py-0">
                         Deeper
                       </Badge>
                     </div>
-                    <p className="text-yellow-600 dark:text-yellow-400 font-mono text-lg font-bold">
+                    <p className="text-slate-900 dark:text-white font-mono text-lg font-bold">
                       {formatPrice(analysis.technical_analysis.ema50)}
                     </p>
                   </div>
                 )}
 
-                <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/20">
-                  <p className="text-blue-700 dark:text-blue-200 text-xs">
+                <div className="p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/50 border border-slate-200 dark:border-slate-700">
+                  <p className="text-slate-700 dark:text-slate-300 text-xs">
                     💡 Set limit orders at these levels
                   </p>
                 </div>
               </div>
             ) : (
-              <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-900/40">
-                <p className="text-slate-900 dark:text-slate-300 font-mono text-xl font-bold mb-1">
+              <div className="p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/50">
+                <p className="text-slate-900 dark:text-white font-mono text-xl font-bold mb-1">
                   {formatPrice(plan.entry)}
                 </p>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">Market entry</p>
@@ -123,75 +121,73 @@ export default function TradeStrategyPanel({ analysis }) {
             )}
           </div>
 
-          <div className="p-3 rounded-lg bg-red-50 dark:bg-gradient-to-br dark:from-red-900/20 dark:to-rose-900/20 border border-red-300 dark:border-red-500/40">
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
             <div className="flex items-center gap-2 mb-2">
-              <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-500/20">
-                <Shield className="w-4 h-4 text-red-600 dark:text-red-400" />
-              </div>
-              <h4 className="font-semibold text-sm text-red-800 dark:text-white">Stop Loss</h4>
+              <Shield className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <h4 className="font-semibold text-sm text-slate-900 dark:text-white">Stop Loss</h4>
             </div>
-            <p className="text-red-600 dark:text-red-400 font-mono text-2xl font-bold mb-2">
+            <p className="text-slate-900 dark:text-white font-mono text-2xl font-bold mb-2">
               {formatPrice(plan.stop_loss)}
             </p>
             <div className="flex items-center justify-between text-xs p-2 rounded-lg bg-white dark:bg-[#3A3B3C]/30">
               <span className="text-slate-600 dark:text-slate-400 font-medium">Risk</span>
-              <span className="text-red-600 dark:text-red-400 font-mono font-bold">{plan.sl_pips} pips</span>
+              <span className="text-slate-900 dark:text-white font-mono font-bold">{plan.sl_pips} pips</span>
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="p-3 rounded-lg bg-green-50 dark:bg-gradient-to-br dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-500/30">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-1.5">
-                  <Target className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <h4 className="font-semibold text-sm text-green-800 dark:text-green-200">TP1</h4>
+                  <Target className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                  <h4 className="font-semibold text-sm text-slate-900 dark:text-white">TP1</h4>
                 </div>
-                <Badge className="bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-500/30 text-xs px-2 py-0">
+                <Badge className="bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs px-2 py-0">
                   {plan.rr_ratio_1 || '1:1.5'}
                 </Badge>
               </div>
-              <p className="text-green-600 dark:text-green-300 font-mono text-xl font-bold mb-1.5">
+              <p className="text-slate-900 dark:text-white font-mono text-xl font-bold mb-1.5">
                 {formatPrice(plan.take_profit_1)}
               </p>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-600 dark:text-slate-400">Profit</span>
-                <span className="text-green-600 dark:text-green-300 font-mono font-semibold">{plan.tp1_pips} pips</span>
+                <span className="text-slate-900 dark:text-white font-mono font-semibold">{plan.tp1_pips} pips</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-lg bg-green-50 dark:bg-gradient-to-br dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-500/30">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-1.5">
-                  <Target className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <h4 className="font-semibold text-sm text-green-800 dark:text-green-200">TP2</h4>
+                  <Target className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                  <h4 className="font-semibold text-sm text-slate-900 dark:text-white">TP2</h4>
                 </div>
-                <Badge className="bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-500/30 text-xs px-2 py-0">
+                <Badge className="bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs px-2 py-0">
                   {plan.rr_ratio_2 || '1:3'}
                 </Badge>
               </div>
-              <p className="text-green-600 dark:text-green-300 font-mono text-xl font-bold mb-1.5">
+              <p className="text-slate-900 dark:text-white font-mono text-xl font-bold mb-1.5">
                 {formatPrice(plan.take_profit_2)}
               </p>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-600 dark:text-slate-400">Profit</span>
-                <span className="text-green-600 dark:text-green-300 font-mono font-semibold">{plan.tp2_pips} pips</span>
+                <span className="text-slate-900 dark:text-white font-mono font-semibold">{plan.tp2_pips} pips</span>
               </div>
             </div>
           </div>
 
-          <div className="p-3 rounded-lg bg-yellow-50 dark:bg-gradient-to-br dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-300 dark:border-yellow-500/30">
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
             <div className="flex items-center gap-1.5 mb-2">
-              <DollarSign className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-              <h4 className="font-semibold text-sm text-yellow-800 dark:text-yellow-200">Position Sizing</h4>
+              <DollarSign className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <h4 className="font-semibold text-sm text-slate-900 dark:text-white">Position Sizing</h4>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <span className="text-slate-600 dark:text-slate-400 text-xs block mb-0.5">Lot Size</span>
-                <p className="text-yellow-700 dark:text-yellow-300 font-mono text-lg font-bold">{plan.lot_size}</p>
+                <p className="text-slate-900 dark:text-white font-mono text-lg font-bold">{plan.lot_size}</p>
               </div>
               <div>
                 <span className="text-slate-600 dark:text-slate-400 text-xs block mb-0.5">Risk %</span>
-                <p className="text-yellow-700 dark:text-yellow-300 font-mono text-lg font-bold">{plan.risk_percentage}%</p>
+                <p className="text-slate-900 dark:text-white font-mono text-lg font-bold">{plan.risk_percentage}%</p>
               </div>
             </div>
           </div>
