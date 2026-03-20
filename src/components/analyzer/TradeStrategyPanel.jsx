@@ -193,33 +193,33 @@ export default function TradeStrategyPanel({ analysis }) {
           </div>
 
           {plan.entry_justification && (
-            <div className="p-3 rounded-lg bg-purple-50 dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-500/40">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
               <h5 className="text-slate-900 dark:text-white font-semibold mb-2 flex items-center gap-1.5 text-sm">
                 <span>🎯</span> Entry Zone Strategy
               </h5>
-              <p className="text-slate-700 dark:text-slate-200 text-xs leading-relaxed whitespace-pre-wrap">
+              <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed whitespace-pre-wrap">
                 {plan.entry_justification}
               </p>
             </div>
           )}
 
           {plan.risk_guidance && (
-            <div className="p-3 rounded-lg bg-orange-50 dark:bg-gradient-to-br dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200 dark:border-orange-500/40">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
               <h5 className="text-slate-900 dark:text-white font-semibold mb-2 flex items-center gap-1.5 text-sm">
                 <span>⚖️</span> Risk Management
               </h5>
-              <pre className="text-slate-700 dark:text-slate-200 text-xs leading-relaxed whitespace-pre-wrap font-sans">
+              <pre className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed whitespace-pre-wrap font-sans">
                 {plan.risk_guidance}
               </pre>
             </div>
           )}
 
           {plan.management_notes && (
-            <div className="p-3 rounded-lg bg-blue-50 dark:bg-gradient-to-br dark:from-[#1877F2]/10 dark:to-[#0866FF]/10 border border-blue-200 dark:border-[#1877F2]/40">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700">
               <h5 className="text-slate-900 dark:text-white font-semibold mb-2 flex items-center gap-1.5 text-sm">
                 <span>💡</span> Trade Management
               </h5>
-              <pre className="text-slate-700 dark:text-slate-200 text-xs leading-relaxed whitespace-pre-wrap font-sans">
+              <pre className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed whitespace-pre-wrap font-sans">
                 {plan.management_notes}
               </pre>
             </div>
