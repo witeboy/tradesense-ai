@@ -981,7 +981,7 @@ Provide structured analysis with clear sentiment.`;
             )}
 
             {analysisData && (
-              <TradeStrategyPanel analysis={analysisData} />
+              <TradeStrategyPanel analysis={analysisData} instrument={instrument} />
             )}
 
             {analysisData && analysisData.primary_trade_plan && (
