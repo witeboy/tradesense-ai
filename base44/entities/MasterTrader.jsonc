@@ -1,0 +1,79 @@
+{
+  "name": "MasterTrader",
+  "type": "object",
+  "properties": {
+    "trader_name": {
+      "type": "string",
+      "description": "Master trader display name"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Trader biography"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Profile picture URL"
+    },
+    "total_followers": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of followers"
+    },
+    "win_rate": {
+      "type": "number",
+      "description": "Overall win rate percentage"
+    },
+    "total_profit": {
+      "type": "number",
+      "description": "Total profit in USD"
+    },
+    "total_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "Total trades executed"
+    },
+    "profit_factor": {
+      "type": "number",
+      "description": "Profit factor ratio"
+    },
+    "max_drawdown": {
+      "type": "number",
+      "description": "Maximum drawdown percentage"
+    },
+    "risk_score": {
+      "type": "number",
+      "description": "Risk score 1-10"
+    },
+    "trading_style": {
+      "type": "string",
+      "enum": [
+        "Scalper",
+        "Day Trader",
+        "Swing Trader",
+        "Position Trader"
+      ],
+      "description": "Trading style"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Verified master trader badge"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Active status"
+    }
+  },
+  "required": [
+    "trader_name"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

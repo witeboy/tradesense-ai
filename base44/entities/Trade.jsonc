@@ -1,0 +1,129 @@
+{
+  "name": "Trade",
+  "type": "object",
+  "properties": {
+    "mt5_account_id": {
+      "type": "string",
+      "description": "Reference to MT5Account entity"
+    },
+    "analysis_id": {
+      "type": "string",
+      "description": "Reference to the Analysis that generated this trade"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Trading symbol (e.g., EURUSD)"
+    },
+    "timeframe": {
+      "type": "string",
+      "description": "Chart timeframe"
+    },
+    "trade_type": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "description": "Trade direction"
+    },
+    "entry_price": {
+      "type": "number",
+      "description": "Entry price"
+    },
+    "stop_loss": {
+      "type": "number",
+      "description": "Stop loss price"
+    },
+    "take_profit": {
+      "type": "number",
+      "description": "Take profit price"
+    },
+    "lot_size": {
+      "type": "number",
+      "description": "Position size in lots"
+    },
+    "risk_percentage": {
+      "type": "number",
+      "description": "Risk percentage of account"
+    },
+    "rr_ratio": {
+      "type": "number",
+      "description": "Risk-reward ratio"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "OPEN",
+        "CLOSED",
+        "CANCELLED"
+      ],
+      "default": "PENDING",
+      "description": "Trade status"
+    },
+    "mt5_ticket": {
+      "type": "string",
+      "description": "MT5 order ticket number"
+    },
+    "current_profit": {
+      "type": "number",
+      "description": "Current profit/loss"
+    },
+    "close_price": {
+      "type": "number",
+      "description": "Closing price (if closed)"
+    },
+    "close_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Trade close timestamp"
+    },
+    "is_paper_trade": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a paper trade (simulation)"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "AI confidence score (0-100)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Trade notes or reasons"
+    }
+  },
+  "required": [
+    "symbol",
+    "trade_type",
+    "entry_price",
+    "stop_loss",
+    "take_profit",
+    "lot_size"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

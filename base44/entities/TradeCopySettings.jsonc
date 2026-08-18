@@ -1,0 +1,83 @@
+{
+  "name": "TradeCopySettings",
+  "type": "object",
+  "properties": {
+    "master_trader_id": {
+      "type": "string",
+      "description": "Reference to MasterTrader"
+    },
+    "follower_account_id": {
+      "type": "string",
+      "description": "MT5/MT4 account ID to copy to"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Copy trades enabled"
+    },
+    "risk_multiplier": {
+      "type": "number",
+      "default": 1.0,
+      "description": "Position size multiplier"
+    },
+    "max_risk_per_trade": {
+      "type": "number",
+      "default": 2,
+      "description": "Max risk percentage per trade"
+    },
+    "copy_delay_seconds": {
+      "type": "number",
+      "default": 0,
+      "description": "Delay before copying trade"
+    },
+    "filter_instruments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Only copy these instruments (empty = all)"
+    },
+    "min_confidence": {
+      "type": "number",
+      "default": 0,
+      "description": "Minimum confidence score to copy"
+    },
+    "copy_stop_loss": {
+      "type": "boolean",
+      "default": true,
+      "description": "Copy stop loss"
+    },
+    "copy_take_profit": {
+      "type": "boolean",
+      "default": true,
+      "description": "Copy take profit"
+    },
+    "started_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When copying started"
+    },
+    "total_copied_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "Total trades copied"
+    },
+    "total_profit": {
+      "type": "number",
+      "default": 0,
+      "description": "Total profit from copied trades"
+    }
+  },
+  "required": [
+    "master_trader_id",
+    "follower_account_id"
+  ],
+  "rls": {
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

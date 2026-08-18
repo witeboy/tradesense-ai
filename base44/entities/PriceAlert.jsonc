@@ -1,0 +1,73 @@
+{
+  "name": "PriceAlert",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading symbol (e.g., EURUSD)"
+    },
+    "confluence_threshold": {
+      "type": "string",
+      "enum": [
+        "75%",
+        "100%"
+      ],
+      "default": "100%",
+      "description": "Minimum confluence percentage to trigger alert"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this alert is active"
+    },
+    "last_triggered": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last time this alert was triggered"
+    },
+    "notification_method": {
+      "type": "string",
+      "enum": [
+        "browser",
+        "mt5",
+        "both"
+      ],
+      "default": "browser",
+      "description": "How to notify the user"
+    },
+    "auto_execute": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to automatically execute trade when alert triggers"
+    }
+  },
+  "required": [
+    "symbol"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

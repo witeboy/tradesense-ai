@@ -1,0 +1,258 @@
+{
+  "name": "Analysis",
+  "type": "object",
+  "properties": {
+    "instrument": {
+      "type": "string",
+      "description": "Trading instrument (e.g., EUR/USD, XAUUSD, US30)"
+    },
+    "primary_timeframe": {
+      "type": "string",
+      "description": "The main chart timeframe analyzed"
+    },
+    "analyzed_timeframes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of timeframes included in multi-timeframe analysis"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "Bullish",
+        "Bearish",
+        "Range"
+      ],
+      "description": "Overall market direction"
+    },
+    "direction_rationale": {
+      "type": "string",
+      "description": "Explanation for direction call"
+    },
+    "current_price": {
+      "type": "number",
+      "description": "Current market price"
+    },
+    "technical_analysis": {
+      "type": "object",
+      "description": "Comprehensive technical analysis",
+      "properties": {
+        "ema21": {
+          "type": "number"
+        },
+        "ema50": {
+          "type": "number"
+        },
+        "ema200": {
+          "type": "number"
+        },
+        "ema_alignment": {
+          "type": "string"
+        },
+        "adx": {
+          "type": "number"
+        },
+        "adx_interpretation": {
+          "type": "string"
+        },
+        "rsi": {
+          "type": "number"
+        },
+        "rsi_zone": {
+          "type": "string"
+        },
+        "macd_line": {
+          "type": "number"
+        },
+        "macd_signal": {
+          "type": "number"
+        },
+        "macd_histogram": {
+          "type": "number"
+        },
+        "trend_strength": {
+          "type": "string"
+        },
+        "support_levels": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "resistance_levels": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "fibonacci_levels": {
+          "type": "object",
+          "properties": {
+            "fib_236": {
+              "type": "number"
+            },
+            "fib_382": {
+              "type": "number"
+            },
+            "fib_500": {
+              "type": "number"
+            },
+            "fib_618": {
+              "type": "number"
+            },
+            "fib_786": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "candlestick_analysis": {
+      "type": "object",
+      "description": "Candlestick pattern analysis",
+      "properties": {
+        "patterns_detected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pattern_implications": {
+          "type": "string"
+        },
+        "reversal_signals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "continuation_signals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fundamental_analysis": {
+      "type": "object",
+      "description": "Fundamental and news analysis",
+      "properties": {
+        "upcoming_events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "news_sentiment": {
+          "type": "string"
+        },
+        "economic_bias": {
+          "type": "string"
+        },
+        "alignment_with_technical": {
+          "type": "string"
+        }
+      }
+    },
+    "chart_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Detected chart patterns (triangles, H&S, etc.)"
+    },
+    "primary_trade_plan": {
+      "type": "object",
+      "description": "Main trade recommendation",
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "BUY",
+            "SELL",
+            "WAIT"
+          ]
+        },
+        "entry_zone": {
+          "type": "string"
+        },
+        "stop_loss": {
+          "type": "number"
+        },
+        "take_profit_1": {
+          "type": "number"
+        },
+        "take_profit_2": {
+          "type": "number"
+        },
+        "risk_percentage": {
+          "type": "number"
+        },
+        "lot_size": {
+          "type": "number"
+        },
+        "rr_ratio": {
+          "type": "number"
+        },
+        "management_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "Overall confidence (0-100%)"
+    },
+    "confidence_breakdown": {
+      "type": "object",
+      "properties": {
+        "technical_weight": {
+          "type": "number"
+        },
+        "candlestick_weight": {
+          "type": "number"
+        },
+        "fundamental_weight": {
+          "type": "number"
+        },
+        "volatility_weight": {
+          "type": "number"
+        }
+      }
+    },
+    "invalidation_rule": {
+      "type": "string",
+      "description": "What would invalidate this analysis"
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Key trading signals"
+    },
+    "chart_image_url": {
+      "type": "string",
+      "description": "URL of uploaded chart"
+    },
+    "json_output": {
+      "type": "object",
+      "description": "Full machine-readable analysis"
+    }
+  },
+  "required": [
+    "instrument",
+    "primary_timeframe",
+    "direction"
+  ],
+  "rls": {
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

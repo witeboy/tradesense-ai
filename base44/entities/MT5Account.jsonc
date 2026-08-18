@@ -1,0 +1,71 @@
+{
+  "name": "MT5Account",
+  "type": "object",
+  "properties": {
+    "account_name": {
+      "type": "string",
+      "description": "Friendly name for this MT5 account"
+    },
+    "login_id": {
+      "type": "string",
+      "description": "MT5 login ID (encrypted)"
+    },
+    "server_name": {
+      "type": "string",
+      "description": "MT5 server name"
+    },
+    "broker_name": {
+      "type": "string",
+      "description": "Broker name (optional)"
+    },
+    "account_balance": {
+      "type": "number",
+      "description": "Current account balance"
+    },
+    "account_equity": {
+      "type": "number",
+      "description": "Current account equity"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this account is currently active"
+    },
+    "last_connected": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last successful connection timestamp"
+    }
+  },
+  "required": [
+    "account_name",
+    "login_id",
+    "server_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

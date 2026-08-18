@@ -1,0 +1,94 @@
+{
+  "name": "CopiedTrade",
+  "type": "object",
+  "properties": {
+    "copy_settings_id": {
+      "type": "string",
+      "description": "Reference to TradeCopySettings"
+    },
+    "master_trader_id": {
+      "type": "string",
+      "description": "Reference to MasterTrader"
+    },
+    "master_trade_id": {
+      "type": "string",
+      "description": "Original trade ID from master"
+    },
+    "follower_trade_id": {
+      "type": "string",
+      "description": "Trade ID on follower account"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Trading symbol"
+    },
+    "trade_type": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    "master_lot_size": {
+      "type": "number",
+      "description": "Master's lot size"
+    },
+    "follower_lot_size": {
+      "type": "number",
+      "description": "Follower's lot size (after multiplier)"
+    },
+    "entry_price": {
+      "type": "number"
+    },
+    "stop_loss": {
+      "type": "number"
+    },
+    "take_profit": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "COPIED",
+        "OPEN",
+        "CLOSED",
+        "FAILED"
+      ],
+      "default": "COPIED"
+    },
+    "copy_delay_ms": {
+      "type": "number",
+      "description": "Actual copy delay in milliseconds"
+    },
+    "profit": {
+      "type": "number",
+      "default": 0,
+      "description": "Profit/loss on follower account"
+    },
+    "close_price": {
+      "type": "number",
+      "description": "Close price if closed"
+    },
+    "close_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "copy_settings_id",
+    "master_trader_id",
+    "symbol",
+    "trade_type"
+  ],
+  "rls": {
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}
